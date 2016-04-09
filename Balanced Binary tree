@@ -1,0 +1,33 @@
+public class Solution {
+    /**
+     * @param root: The root of binary tree.
+     * @return: True if this Binary tree is Balanced, or false.
+     */
+     private class ResultType {
+         private boolean isBalanced;
+         private int height;
+         ResultType( boolean isBalanced, int height) {
+             this. isBalanced = isBalanced;
+            this.  height = height;
+         }
+     }
+    public boolean isBalanced(TreeNode root) {
+        // write your code here
+        return Helper(root).isBalanced;
+    }
+    public ResultType Helper (TreeNode root) {
+        if (root == null) {
+            return new ResultType(true, 0);
+        }
+        ResultType left = Helper(root.left);
+        ResultType right = Helper(root.right);
+        
+        if (!left.isBalanced || !right.isBalanced) {
+            return new ResultType(false, -1);
+        }
+        if ( Math.abs(left.height - right.height) > 1) {
+            return new ResultType(false, -1);
+        }
+        return new ResultType(true, Math.max(left.height, right.height) + 1);
+    }
+}
