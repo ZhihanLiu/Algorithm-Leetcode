@@ -1,0 +1,47 @@
+//Version 1:
+public class Solution {
+    public boolean isValidBST(TreeNode root) {
+          return isValidBST(root, Long.MIN_VALUE, Long.MAX_VALUE);
+}
+private boolean isValidBST(TreeNode root, long min, long max) {
+    return root==null || (root.val<max && root.val>min && isValidBST(root.left, min, root.val) && isValidBST(root.right, root.val, max));
+}
+}
+//version 2
+public class Solution {
+     private class ResultType{
+         boolean isBst;
+         int min;
+         int max;
+         public ResultType (boolean isBst, int min, int max) {
+             this.isBst = isBst;
+             this.min = min;
+             this.max = max;
+         }
+     }
+    public boolean isValidBST(TreeNode root) {
+        // write your code here
+        if (root == null || (root.left==null && root.right==null)) {
+            return true;
+        }
+        return Helper(root).isBst;
+    }
+    private ResultType Helper (TreeNode root) {
+        if (root == null) {
+            return new ResultType( true, Integer.MAX_VALUE, Integer.MIN_VALUE);
+        }
+        ResultType left = Helper(root.left);
+        ResultType right = Helper(root.right);
+        
+        if (!left.isBst ||  !right.isBst) {
+            return new ResultType(false, 0, 0);
+        }
+        //
+        if (root.left!= null && left.max >= root.val || root.right != null&& right.min <= root.val) {
+            return new ResultType(false, 0, 0);
+        }
+        int min = Math.min(left.min,root.val);
+        int max = Math.max(right.max,root.val);
+        return new ResultType( true, min, max);
+    }
+}
