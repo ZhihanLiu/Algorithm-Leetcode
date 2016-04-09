@@ -1,0 +1,32 @@
+public class Solution {
+    /** 
+     *@param A : an integer rotated sorted array
+     *@param target :  an integer to be searched
+     *return : an integer
+     */
+    public int search(int[] A, int target) {
+     if(A == null || A.length == 0) {
+            return -1;
+        }
+     
+        if( A == null) {
+            return 0;
+        }
+        int start = 0;
+        int end = A.length - 1;
+       while (start < end) {
+           int mid = (start + end) / 2;
+         
+           if(A[mid]> A[start] && A[mid] > A[end] ) {
+               start = mid;
+           }
+           if(A[mid] > A[start] && A[mid] < A[end]) {
+               end = mid;
+           }
+            if(A[mid] < A[start] ) {
+               end = mid;
+           }
+       }
+       return Math.min(A[start], A[end]);
+    }
+}
