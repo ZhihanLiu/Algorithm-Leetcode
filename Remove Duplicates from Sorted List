@@ -7,6 +7,7 @@ public class Solution {
         ListNode result = head;
         while (result != null) {
         // 如果第一个数与第二个数一样 那么 就找到下一个不一样的数相连 笨方法
+        //这种思想可以解决 remove duplicated II
             if (result.next != null && result.val == result.next.val) {
                 ListNode temp = result.next;
                 while(temp != null) {
