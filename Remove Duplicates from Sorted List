@@ -1,0 +1,43 @@
+version 1:
+public class Solution {
+    public ListNode deleteDuplicates(ListNode head) {
+        if(head == null || head.next == null) {
+            return head;
+        }
+        ListNode result = head;
+        while (result != null) {
+        // 如果第一个数与第二个数一样 那么 就找到下一个不一样的数相连 笨方法
+            if (result.next != null && result.val == result.next.val) {
+                ListNode temp = result.next;
+                while(temp != null) {
+                    if(temp.val != result.val) {
+                        break;
+                    }
+                    temp = temp.next;
+                }
+                result.next = temp;
+            }
+            result = result.next;
+        }
+        return head;
+    }
+}
+version 2：
+public class Solution {
+    public ListNode deleteDuplicates(ListNode head) {
+        if (head == null) {
+            return null;
+        }
+
+        ListNode node = head;
+        while (node.next != null) {
+        //如果相等 那么 直接删掉这个点 
+            if (node.val == node.next.val) {
+                node.next = node.next.next;
+            } else {
+                node = node.next;
+            }
+        }
+        return head;
+    }
+}
