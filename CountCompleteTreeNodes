@@ -1,10 +1,10 @@
 public class Solution {
     public int countNodes(TreeNode root) {
         if(root==null) return 0;
-        
+        //这里的高度 是 通向最左边叶子的高度 和 通向最右边叶子高度
         int l = getLeft(root) ;
         int r = getRight(root) ;
-        
+        //方法一：笨方法 如果是full completed binary tree 就可以 通过 2^h -1
         if(l==r) {
             return (2<<(l)) - 1;
         } else {
@@ -12,6 +12,20 @@ public class Solution {
         }
     }
     
+    
+    public int countNodes2(TreeNode root) {
+        if(root==null) return 0;
+        
+        int l = getHeight(root) ;
+        int r = getHeight(root) ;
+        //方法二：如果左右树高度相同 那么左子树一定是满的
+        //相反 如果高度不同那么 右边一定是满的
+        if(l==r) {
+            return (2<<(l)) - 1 + 1 + countNodes(root.right);
+        } else {
+            return countNodes(root.left) + (2<<(h)) - 1 + 1;
+        }
+    }
     private int getLeft(TreeNode root) {
         int count = 0;
         while(root.left!=null) {
