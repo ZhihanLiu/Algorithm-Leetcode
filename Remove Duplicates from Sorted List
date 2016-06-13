@@ -42,3 +42,25 @@ public class Solution {
         return head;
     }
 }
+
+version 3:
+    public ListNode deleteDuplicates(ListNode head) {
+        if (head == null || head.next==null) {
+            return head;
+        }
+        ListNode dummy = new ListNode(-1);
+        dummy.next = head;
+        ListNode result = dummy.next;
+        while (head != null) {
+          ListNode temp = head.next;
+            if (dummy.val != head.val) {
+                dummy.next = head;
+                head.next =null;
+                dummy = dummy.next;
+            }
+            
+             head = temp;
+        }
+        
+        return result;
+    }
